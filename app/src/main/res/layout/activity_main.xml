@@ -7,10 +7,16 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/hello_world"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Привет, Мир!"
         android:layout_gravity="center"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
         />
+
+
 
 </FrameLayout>
