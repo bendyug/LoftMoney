@@ -3,4 +3,7 @@
     <string name="title_hint">Title</string>
     <string name="price_hint">Price</string>
     <string name="button_text">Add</string>
+    <string name="budget_activity_title">Budget control</string>
+
+    <string name="price_template" translatable="false">%1$s ₽</string>
 </resources>
