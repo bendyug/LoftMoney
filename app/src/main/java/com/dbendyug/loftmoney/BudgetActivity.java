@@ -29,16 +29,16 @@ public class BudgetActivity extends AppCompatActivity {
         itemsAdapter = new ItemsAdapter();
 
         recyclerView.setAdapter(itemsAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, true));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 new LinearLayoutManager(this).getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
 
-        itemsAdapter.addItem(new Item("Молоко", 70));
-        itemsAdapter.addItem(new Item("Зубная Щётка", 70));
-        itemsAdapter.addItem(new Item("Сковородка с антипригарным покрытием", 1670)); //example of filling
+        //itemsAdapter.addItem(new Item("Молоко", 70));
+        //itemsAdapter.addItem(new Item("Зубная Щётка", 70));
+        //itemsAdapter.addItem(new Item("Сковородка с антипригарным покрытием", 1670)); //example of filling
 
         openAddScreenButton = findViewById(R.id.open_add_screen_button);
         openAddScreenButton.setOnClickListener(new View.OnClickListener() {
