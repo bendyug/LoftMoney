@@ -1,10 +1,13 @@
 package com.dbendyug.loftmoney;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -12,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 public class AddItemActivity extends AppCompatActivity {
+    public static final String TITLE_KEY = "name";
+    public static final String PRICE_KEY = "price";
 
     private EditText titleEdit;
     private EditText priceEdit;
@@ -64,6 +69,13 @@ public class AddItemActivity extends AppCompatActivity {
             }
         });
 
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setResult(Activity.RESULT_OK, new Intent().putExtra(TITLE_KEY, title).putExtra(PRICE_KEY, price));
+                finish();
+            }
+        });
 
     }
 

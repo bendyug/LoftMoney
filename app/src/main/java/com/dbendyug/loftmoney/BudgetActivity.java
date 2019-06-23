@@ -1,5 +1,6 @@
 package com.dbendyug.loftmoney;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class BudgetActivity extends AppCompatActivity {
+    public static final int REQUEST_CODE = 100;
+    public static final String TITLE_KEY = "name";
+    public static final String PRICE_KEY = "price";
+    private ItemsAdapter itemsAdapter;
 
     private Button openAddScreenButton;
     @Override
@@ -21,7 +26,7 @@ public class BudgetActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
-        final ItemsAdapter itemsAdapter = new ItemsAdapter();
+        itemsAdapter = new ItemsAdapter();
 
         recyclerView.setAdapter(itemsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -30,16 +35,27 @@ public class BudgetActivity extends AppCompatActivity {
                 new LinearLayoutManager(this).getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
+
         itemsAdapter.addItem(new Item("Молоко", 70));
         itemsAdapter.addItem(new Item("Зубная Щётка", 70));
-        itemsAdapter.addItem(new Item("Сковородка с антипригарным покрытием", 1670));
+        itemsAdapter.addItem(new Item("Сковородка с антипригарным покрытием", 1670)); //example of filling
 
         openAddScreenButton = findViewById(R.id.open_add_screen_button);
         openAddScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(BudgetActivity.this, AddItemActivity.class ));
+                startActivityForResult(new Intent(BudgetActivity.this, AddItemActivity.class), REQUEST_CODE);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK){
+            Item item = new Item(data.getStringExtra(TITLE_KEY), Integer.parseInt(data.getStringExtra(PRICE_KEY)));
+            itemsAdapter.addItem(item);
+        }
     }
 }
