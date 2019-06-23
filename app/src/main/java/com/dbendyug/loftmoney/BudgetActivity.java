@@ -1,6 +1,9 @@
 package com.dbendyug.loftmoney;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class BudgetActivity extends AppCompatActivity {
+
+    private Button openAddScreenButton;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,5 +33,13 @@ public class BudgetActivity extends AppCompatActivity {
         itemsAdapter.addItem(new Item("Молоко", 70));
         itemsAdapter.addItem(new Item("Зубная Щётка", 70));
         itemsAdapter.addItem(new Item("Сковородка с антипригарным покрытием", 1670));
+
+        openAddScreenButton = findViewById(R.id.open_add_screen_button);
+        openAddScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(BudgetActivity.this, AddItemActivity.class ));
+            }
+        });
     }
 }
