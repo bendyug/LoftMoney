@@ -54,8 +54,11 @@ public class BudgetActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK){
-            Item item = new Item(data.getStringExtra(TITLE_KEY), Integer.parseInt(data.getStringExtra(PRICE_KEY)));
-            itemsAdapter.addItem(item);
+            Item item = null;
+            if (data != null) {
+                item = new Item(data.getStringExtra(TITLE_KEY), Integer.parseInt(data.getStringExtra(PRICE_KEY)));
+                itemsAdapter.addItem(item);
+            }
         }
     }
 }

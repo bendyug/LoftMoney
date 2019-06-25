@@ -4,6 +4,5 @@
     <string name="price_hint">Price</string>
     <string name="add_button_text">Add</string>
     <string name="budget_activity_title">Budget control</string>
-
-    <string name="price_template" translatable="false">%1$s ₽</string>
+    <string name="price_template">%1$s ₽</string>
 </resources>
