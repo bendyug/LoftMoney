@@ -43,7 +43,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:background="@null"
-        android:text="@string/button_text"
+        android:text="@string/add_button_text"
         android:textColor="@color/add_button_color_inactive"
         />
 

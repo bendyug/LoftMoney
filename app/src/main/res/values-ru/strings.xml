@@ -2,5 +2,7 @@
     <string name="app_name">ЛофтДеньги</string>
     <string name="title_hint">Название</string>
     <string name="price_hint">Цена</string>
-    <string name="button_text">Добавить</string>
+    <string name="add_button_text">Добавить</string>
+    <string name="budget_activity_title">Учёт бюджета</string>
+    <string name="price_template">%1$s ₽</string>
 </resources>
