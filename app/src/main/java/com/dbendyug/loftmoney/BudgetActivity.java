@@ -1,64 +1,65 @@
 package com.dbendyug.loftmoney;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import com.google.android.material.tabs.TabLayout;
 
 public class BudgetActivity extends AppCompatActivity {
-    public static final int REQUEST_CODE = 100;
-    public static final String TITLE_KEY = "name";
-    public static final String PRICE_KEY = "price";
-    private ItemsAdapter itemsAdapter;
 
-    private Button openAddScreenButton;
+    public static final String INCOME = "income";
+    public static final String OUTCOME = "outcome";
+
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private BudgetViewPagerAdapter budgetViewPagerAdapter;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        budgetViewPagerAdapter = new BudgetViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
-        itemsAdapter = new ItemsAdapter();
+        tabLayout = findViewById(R.id.tab_layout);
+        viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(budgetViewPagerAdapter);
 
-        recyclerView.setAdapter(itemsAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, true));
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setText(R.string.outcome);
+        tabLayout.getTabAt(1).setText(R.string.income);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                new LinearLayoutManager(this).getOrientation());
-        recyclerView.addItemDecoration(dividerItemDecoration);
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_indicator_color));
 
-
-        //itemsAdapter.addItem(new Item("Молоко", 70));
-        //itemsAdapter.addItem(new Item("Зубная Щётка", 70));
-        //itemsAdapter.addItem(new Item("Сковородка с антипригарным покрытием", 1670)); //example of filling
-
-        openAddScreenButton = findViewById(R.id.open_add_screen_button);
-        openAddScreenButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(new Intent(BudgetActivity.this, AddItemActivity.class), REQUEST_CODE);
-            }
-        });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    static class BudgetViewPagerAdapter extends FragmentPagerAdapter {
 
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK){
-            Item item = null;
-            if (data != null) {
-                item = new Item(data.getStringExtra(TITLE_KEY), Integer.parseInt(data.getStringExtra(PRICE_KEY)));
-                itemsAdapter.addItem(item);
+        public BudgetViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
+            super(fm, behavior);
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            switch (position){
+                case (0):
+                    return BudgetFragment.newInstance(R.color.outcome_price_color);
+                case (1):
+                    return BudgetFragment.newInstance(R.color.income_price_color);
             }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
         }
     }
 }
