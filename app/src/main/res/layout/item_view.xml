@@ -27,7 +27,7 @@
         android:id="@+id/item_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/item_price_color"
+        android:textColor="@color/outcome_price_color"
         android:layout_alignParentEnd="true"
         android:textSize="20sp"
         android:layout_centerVertical="true"
