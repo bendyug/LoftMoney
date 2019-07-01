@@ -12,9 +12,6 @@ import com.google.android.material.tabs.TabLayout;
 
 public class BudgetActivity extends AppCompatActivity {
 
-    public static final String INCOME = "income";
-    public static final String OUTCOME = "outcome";
-
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private BudgetViewPagerAdapter budgetViewPagerAdapter;
@@ -50,9 +47,9 @@ public class BudgetActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position){
                 case (0):
-                    return BudgetFragment.newInstance(R.color.outcome_price_color);
+                    return BudgetFragment.newInstance(FragmentType.expense);
                 case (1):
-                    return BudgetFragment.newInstance(R.color.income_price_color);
+                    return BudgetFragment.newInstance(FragmentType.income);
             }
             return null;
         }
