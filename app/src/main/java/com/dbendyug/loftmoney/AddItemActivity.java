@@ -15,8 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 public class AddItemActivity extends AppCompatActivity {
-    public static final String TITLE_KEY = "name";
-    public static final String PRICE_KEY = "price";
+    private static final String TITLE_KEY = "name";
+    private static final String PRICE_KEY = "price";
 
     private EditText titleEdit;
     private EditText priceEdit;
