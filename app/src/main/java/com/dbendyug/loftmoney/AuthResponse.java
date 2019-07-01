@@ -4,19 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 class AuthResponse {
 
-    private String status;
     private int id;
-
     @SerializedName("auth_token")
     private String authToken;
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public int getId() {
         return id;

@@ -78,7 +78,6 @@ public class BudgetFragment extends Fragment {
                 new LinearLayoutManager(getContext()).getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-
         Button openAddScreenButton = fragmentView.findViewById(R.id.open_add_screen_button);
         openAddScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,15 +100,15 @@ public class BudgetFragment extends Fragment {
             String type = getArguments().getString(TYPE);
             SharedPreferences sharedPreferences = getContext().getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
             String authToken = sharedPreferences.getString(MainActivity.AUTH_TOKEN, "");
-            Call<Status> call = loftApi.addItems(new AddItemRequest(price, title, type), authToken);
-            call.enqueue(new Callback<Status>() {
+            Call<UserId> call = loftApi.addItems(new AddItemRequest(price, title, type), authToken);
+            call.enqueue(new Callback<UserId>() {
                 @Override
-                public void onResponse(Call<Status> call, Response<Status> response) {
+                public void onResponse(Call<UserId> call, Response<UserId> response) {
                     loadItems();
                 }
 
                 @Override
-                public void onFailure(Call<Status> call, Throwable t) {
+                public void onFailure(Call<UserId> call, Throwable t) {
 
                 }
             });
@@ -117,9 +116,9 @@ public class BudgetFragment extends Fragment {
     }
 
     public void loadItems(){
-        Call<List<Item>> call = loftApi.getItems(getArguments().getString(TYPE)
-                ,getContext().getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE)
-                        .getString(MainActivity.AUTH_TOKEN, ""));
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+        String authToken = sharedPreferences.getString(MainActivity.AUTH_TOKEN, "");
+        Call<List<Item>> call = loftApi.getItems(getArguments().getString(TYPE), authToken);
         call.enqueue(new Callback<List<Item>>() {
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
@@ -130,7 +129,6 @@ public class BudgetFragment extends Fragment {
                     itemsAdapter.addItem(item);
                 }
             }
-
             @Override
             public void onFailure(Call<List<Item>> call, Throwable t) {
 

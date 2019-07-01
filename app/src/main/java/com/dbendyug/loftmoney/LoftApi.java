@@ -17,6 +17,6 @@ public interface LoftApi {
     Call<List<Item>> getItems(@Query("type") String type, @Query("auth-token") String authToken);
 
     @POST("items/add")
-    Call<Status> addItems(@Body AddItemRequest addItemRequest, @Query("auth-token") String authToken);
+    Call<UserId> addItems(@Body AddItemRequest addItemRequest, @Query("auth-token") String authToken);
 
 }
