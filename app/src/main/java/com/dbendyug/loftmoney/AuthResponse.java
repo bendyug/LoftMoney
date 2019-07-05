@@ -8,7 +8,6 @@ class AuthResponse {
     @SerializedName("auth_token")
     private String authToken;
 
-
     public int getId() {
         return id;
     }

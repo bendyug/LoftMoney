@@ -10,12 +10,20 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,12 +36,13 @@ public class BudgetFragment extends Fragment {
     private static final String PRICE_COLOR = "priceColor";
     private static final String TYPE = "type";
 
-    private static final int REQUEST_CODE = 100;
+    public static final int REQUEST_CODE = 100;
     private static final String TITLE_KEY = "name";
     private static final String PRICE_KEY = "price";
 
     private LoftApi loftApi;
     private ItemsAdapter itemsAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public BudgetFragment() {
     }
@@ -69,22 +78,22 @@ public class BudgetFragment extends Fragment {
 
         RecyclerView recyclerView = fragmentView.findViewById(R.id.recycler_view);
 
+        swipeRefreshLayout = fragmentView.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadItems();
+            }
+        });
+
         itemsAdapter = new ItemsAdapter(getArguments().getInt(PRICE_COLOR));
 
         recyclerView.setAdapter(itemsAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, true));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 new LinearLayoutManager(getContext()).getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
-
-        Button openAddScreenButton = fragmentView.findViewById(R.id.open_add_screen_button);
-        openAddScreenButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(new Intent(getContext(), AddItemActivity.class), REQUEST_CODE);
-            }
-        });
 
         return fragmentView;
     }
@@ -93,7 +102,7 @@ public class BudgetFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
 
             int price = Integer.parseInt(data.getStringExtra(PRICE_KEY));
             String title = data.getStringExtra(TITLE_KEY);
@@ -115,23 +124,33 @@ public class BudgetFragment extends Fragment {
         }
     }
 
-    public void loadItems(){
+    public void loadItems() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
         String authToken = sharedPreferences.getString(MainActivity.AUTH_TOKEN, "");
         Call<List<Item>> call = loftApi.getItems(getArguments().getString(TYPE), authToken);
         call.enqueue(new Callback<List<Item>>() {
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
-
+                swipeRefreshLayout.setRefreshing(false);
                 itemsAdapter.clear();
                 List<Item> itemsList = response.body();
-                for (Item item: itemsList) {
+
+                Comparator<Item> compareByDate = new Comparator<Item>() {
+                    @Override
+                    public int compare(Item item, Item t1) {
+                        return item.getCreatedAt().compareTo(t1.getCreatedAt());
+                    }
+                };
+                Collections.sort(itemsList, compareByDate);
+
+                for (Item item : itemsList) {
                     itemsAdapter.addItem(item);
                 }
             }
+
             @Override
             public void onFailure(Call<List<Item>> call, Throwable t) {
-
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
