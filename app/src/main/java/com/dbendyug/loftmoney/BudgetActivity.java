@@ -1,17 +1,26 @@
 package com.dbendyug.loftmoney;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+
 
 public class BudgetActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private BudgetViewPagerAdapter budgetViewPagerAdapter;
@@ -22,7 +31,10 @@ public class BudgetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget);
 
-        budgetViewPagerAdapter = new BudgetViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        budgetViewPagerAdapter = new BudgetViewPagerAdapter(getSupportFragmentManager());
 
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
@@ -34,18 +46,30 @@ public class BudgetActivity extends AppCompatActivity {
 
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_indicator_color));
 
+        FloatingActionButton openAddScreenButton = findViewById(R.id.fab_add_screen);
+        openAddScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                for (Fragment fragment : fragmentManager.getFragments()) {
+                    if (fragment.getUserVisibleHint()) {
+                        fragment.startActivityForResult(new Intent(BudgetActivity.this, AddItemActivity.class), BudgetFragment.REQUEST_CODE);
+                    }
+                }
+            }
+        });
     }
 
     static class BudgetViewPagerAdapter extends FragmentPagerAdapter {
 
-        public BudgetViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
-            super(fm, behavior);
+        public BudgetViewPagerAdapter(FragmentManager fm) {
+            super(fm);
         }
 
         @NonNull
         @Override
         public Fragment getItem(int position) {
-            switch (position){
+            switch (position) {
                 case (0):
                     return BudgetFragment.newInstance(FragmentType.expense);
                 case (1):

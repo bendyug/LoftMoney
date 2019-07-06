@@ -33,13 +33,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         LoftApp loftApp = (LoftApp) getApplication();
 
         LoftApi loftApi = loftApp.getLoftApi();
 
         String androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-
 
         Call<AuthResponse> authCall = loftApi.auth(androidId);
         authCall.enqueue(new Callback<AuthResponse>() {

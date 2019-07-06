@@ -35,7 +35,7 @@ public class LoftApp extends Application {
 
     }
 
-    public LoftApi getLoftApi(){
+    public LoftApi getLoftApi() {
         return loftApi;
     }
 }

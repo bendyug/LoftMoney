@@ -39,7 +39,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         return itemList.size();
     }
 
-    public void addItem (final Item item){
+    public void addItem(final Item item) {
         itemList.add(item);
         notifyItemInserted(itemList.size());
     }
@@ -48,7 +48,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         itemList.clear();
         notifyDataSetChanged();
     }
-
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
@@ -62,7 +61,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
             priceView = itemView.findViewById(R.id.item_price);
         }
 
-        public void bindItem(final Item item){
+        public void bindItem(final Item item) {
             nameView.setText(item.getName());
             priceView.setText(
                     priceView.getContext().getResources().

@@ -3,37 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="24dp"
-    android:paddingEnd="24dp"
-    android:paddingTop="29dp"
-    android:paddingBottom="29dp"
     android:background="@android:color/white"
-    >
+    android:paddingStart="24dp"
+    android:paddingTop="29dp"
+    android:paddingEnd="24dp"
+    android:paddingBottom="29dp">
 
     <TextView
         android:id="@+id/item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@id/item_price"
-        android:layout_marginEnd="10dp"
         android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@id/item_price"
         android:textColor="@color/item_name_color"
         android:textSize="20sp"
-        tools:text="Молоко"
-        />
+        tools:text="Молоко" />
 
     <TextView
         android:id="@+id/item_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/expense_price_color"
         android:layout_alignParentEnd="true"
-        android:textSize="20sp"
         android:layout_centerVertical="true"
-        android:textStyle="bold"
         android:layout_gravity="end"
-        tools:text="70 ₽"
-        />
+        android:textColor="@color/expense_price_color"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="70 ₽" />
 
 </RelativeLayout>
