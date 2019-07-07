@@ -7,8 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
 
 
 import retrofit2.Call;
@@ -25,11 +26,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView helloWorldView = findViewById(R.id.hello_world);
-        helloWorldView.setOnClickListener(new View.OnClickListener() {
+        if (!TextUtils.isEmpty(getAuthToken())){
+            startBudgetAcivity();
+        }
+
+        Button loginButton = findViewById(R.id.login_button);
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, BudgetActivity.class));
+                startBudgetAcivity();
+                overridePendingTransition(R.anim.anim_from_right, R.anim.anim_to_left);
             }
         });
 
@@ -54,6 +60,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void startBudgetAcivity() {
+        startActivity(new Intent(MainActivity.this, BudgetActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        finish();
+    }
+
+    private String getAuthToken() {
+        SharedPreferences sharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(AUTH_TOKEN, "");
     }
 }
 

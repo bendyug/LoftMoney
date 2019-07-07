@@ -57,11 +57,12 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center"
-        android:background="@null"
+        android:backgroundTint="@null"
         android:enabled="false"
         android:text="@string/add_button_text"
         android:textColor="@color/add_button_color"
         app:icon="@drawable/ic_check_grey_24dp"
-        app:iconTint="@color/add_button_color" />
+        app:iconTint="@color/add_button_color"
+        app:rippleColor="@color/add_button_text_color" />
 
 </RelativeLayout>

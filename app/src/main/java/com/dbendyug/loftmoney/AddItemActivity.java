@@ -3,7 +3,6 @@ package com.dbendyug.loftmoney;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -12,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 public class AddItemActivity extends AppCompatActivity {
     private static final String TITLE_KEY = "name";
@@ -74,9 +72,16 @@ public class AddItemActivity extends AppCompatActivity {
             public void onClick(View view) {
                 setResult(Activity.RESULT_OK, new Intent().putExtra(TITLE_KEY, title).putExtra(PRICE_KEY, price));
                 finish();
+                overridePendingTransition(R.anim.anim_from_bottom, R.anim.anim_to_top);
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.anim_from_left, R.anim.anim_to_right);
     }
 
     private void changeButtonTextColor() {

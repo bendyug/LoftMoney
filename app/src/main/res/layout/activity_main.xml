@@ -1,28 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:title="@string/app_name"
-        app:titleTextColor="@android:color/white" />
+    <ImageView
+        android:layout_width="93dp"
+        android:layout_height="93dp"
+        android:src="@drawable/ic_icon" />
 
     <TextView
-        android:id="@+id/hello_world"
+        style="@style/TextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Привет, Мир!"
-        android:textColor="@android:color/black"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/app_name_english" />
 
-</RelativeLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:paddingStart="40dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="39dp"
+        android:paddingBottom="16dp"
+        android:text="@string/login_button"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        app:backgroundTint="@android:color/white"
+        app:cornerRadius="24dp"
+        app:rippleColor="@color/colorPrimary" />
+
+
+</LinearLayout>

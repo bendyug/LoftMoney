@@ -56,6 +56,7 @@ public class BudgetActivity extends AppCompatActivity {
                         fragment.startActivityForResult(new Intent(BudgetActivity.this, AddItemActivity.class), BudgetFragment.REQUEST_CODE);
                     }
                 }
+                overridePendingTransition(R.anim.anim_from_right, R.anim.anim_to_left);
             }
         });
     }
