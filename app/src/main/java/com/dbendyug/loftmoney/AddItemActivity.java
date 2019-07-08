@@ -21,7 +21,6 @@ public class AddItemActivity extends AppCompatActivity {
     private EditText titleEdit;
     private EditText priceEdit;
     private Button addButton;
-    private TextInputLayout textInputLayout;
 
     private String title;
     private String price;
@@ -33,7 +32,7 @@ public class AddItemActivity extends AppCompatActivity {
         titleEdit = findViewById(R.id.title_edit_text);
         priceEdit = findViewById(R.id.price_edit_text);
         addButton = findViewById(R.id.add_button);
-        textInputLayout = findViewById(R.id.price_til);
+
 
         titleEdit.addTextChangedListener(new TextWatcher() {
             @Override

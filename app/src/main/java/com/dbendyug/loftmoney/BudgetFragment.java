@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -106,8 +107,8 @@ public class BudgetFragment extends Fragment {
 
             int price = Integer.parseInt(data.getStringExtra(PRICE_KEY));
             String title = data.getStringExtra(TITLE_KEY);
-            String type = getArguments().getString(TYPE);
-            SharedPreferences sharedPreferences = getContext().getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+            String type = Objects.requireNonNull(getArguments()).getString(TYPE);
+            SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
             String authToken = sharedPreferences.getString(MainActivity.AUTH_TOKEN, "");
             Call<UserId> call = loftApi.addItems(new AddItemRequest(price, title, type), authToken);
             call.enqueue(new Callback<UserId>() {
@@ -125,9 +126,9 @@ public class BudgetFragment extends Fragment {
     }
 
     public void loadItems() {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
         String authToken = sharedPreferences.getString(MainActivity.AUTH_TOKEN, "");
-        Call<List<Item>> call = loftApi.getItems(getArguments().getString(TYPE), authToken);
+        Call<List<Item>> call = loftApi.getItems(Objects.requireNonNull(getArguments()).getString(TYPE), authToken);
         call.enqueue(new Callback<List<Item>>() {
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
@@ -141,7 +142,7 @@ public class BudgetFragment extends Fragment {
                         return item.getCreatedAt().compareTo(t1.getCreatedAt());
                     }
                 };
-                Collections.sort(itemsList, compareByDate);
+                Collections.sort(Objects.requireNonNull(itemsList), compareByDate);
 
                 for (Item item : itemsList) {
                     itemsAdapter.addItem(item);

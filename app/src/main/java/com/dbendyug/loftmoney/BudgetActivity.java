@@ -17,6 +17,8 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Objects;
+
 
 public class BudgetActivity extends AppCompatActivity {
 
@@ -41,8 +43,8 @@ public class BudgetActivity extends AppCompatActivity {
         viewPager.setAdapter(budgetViewPagerAdapter);
 
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setText(R.string.outcome);
-        tabLayout.getTabAt(1).setText(R.string.income);
+        Objects.requireNonNull(tabLayout.getTabAt(0)).setText(R.string.outcome);
+        Objects.requireNonNull(tabLayout.getTabAt(1)).setText(R.string.income);
 
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_indicator_color));
 
