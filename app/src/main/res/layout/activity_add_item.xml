@@ -31,10 +31,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/price_til"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/price_hint"
-            android:textColorHint="@color/hint_color">
+            android:textColorHint="@color/hint_color"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/price_edit_text"
@@ -43,6 +45,7 @@
                 android:layout_marginTop="@dimen/price_margin_top"
                 android:inputType="number"
                 android:textColor="@color/title_text_color"
+                android:maxLength="9"
                 android:textSize="@dimen/price_text_size" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -57,11 +60,12 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center"
-        android:background="@null"
+        android:backgroundTint="@null"
         android:enabled="false"
         android:text="@string/add_button_text"
         android:textColor="@color/add_button_color"
         app:icon="@drawable/ic_check_grey_24dp"
-        app:iconTint="@color/add_button_color" />
+        app:iconTint="@color/add_button_color"
+        app:rippleColor="@color/add_button_text_color" />
 
 </RelativeLayout>

@@ -7,4 +7,6 @@
     <string name="price_template">%1$s ₽</string>
     <string name="outcome">Expense</string>
     <string name="income">Income</string>
+    <string name="login_button">Login</string>
+    <string name="app_name_english" translatable="false">LoftMoney</string>
 </resources>
