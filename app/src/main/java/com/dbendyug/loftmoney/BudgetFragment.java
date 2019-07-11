@@ -1,27 +1,29 @@
 package com.dbendyug.loftmoney;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import org.json.JSONArray;
-
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -32,7 +34,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class BudgetFragment extends Fragment {
+public class BudgetFragment extends Fragment implements ItemAdapterListener, ActionMode.Callback {
 
     private static final String PRICE_COLOR = "priceColor";
     private static final String TYPE = "type";
@@ -87,7 +89,8 @@ public class BudgetFragment extends Fragment {
             }
         });
 
-        itemsAdapter = new ItemsAdapter(getArguments().getInt(PRICE_COLOR));
+        itemsAdapter = new ItemsAdapter(Objects.requireNonNull(getArguments()).getInt(PRICE_COLOR));
+        itemsAdapter.setListener(this);
 
         recyclerView.setAdapter(itemsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
@@ -133,7 +136,7 @@ public class BudgetFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
                 swipeRefreshLayout.setRefreshing(false);
-                itemsAdapter.clear();
+                itemsAdapter.clearItemList();
                 List<Item> itemsList = response.body();
 
                 Comparator<Item> compareByDate = new Comparator<Item>() {
@@ -154,6 +157,88 @@ public class BudgetFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
+
+    @Override
+    public void onItemClick(Item item, int position) {
+        if (ItemsAdapter.selectedItems.size() > 0) {
+            itemsAdapter.toggleItem(position);
+            itemsAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onItemLongClick(Item item, int position) {
+        if (ItemsAdapter.selectedItems.size() == 0) {
+            itemsAdapter.toggleItem(position);
+            itemsAdapter.notifyDataSetChanged();
+            ((AppCompatActivity) Objects.requireNonNull(getActivity())).startSupportActionMode(this);
+        }
+    }
+
+
+    @Override
+    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        MenuInflater inflater = new MenuInflater(getContext());
+        inflater.inflate(R.menu.item_menu_delete, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+        if (item.getItemId() == R.id.menu_delete_icon) {
+            showDialog();
+        }
+        return false;
+    }
+
+    @Override
+    public void onDestroyActionMode(ActionMode mode) {
+        itemsAdapter.clearSelectedItems();
+        itemsAdapter.notifyDataSetChanged();
+    }
+
+    private void showDialog() {
+        new AlertDialog.Builder(getContext())
+                .setMessage(R.string.dialog_delete_message)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                       removeItems();
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).show();
+    }
+
+    private void removeItems() {
+        List<Integer> selectedItemIds = itemsAdapter.getSelectedItemIds();
+        for (int id : selectedItemIds) {
+            SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+            String authToken = sharedPreferences.getString(MainActivity.AUTH_TOKEN, "");
+            Call<UserId> call = loftApi.deleteItem(id, authToken);
+            call.enqueue(new Callback<UserId>() {
+                @Override
+                public void onResponse(Call<UserId> call, Response<UserId> response) {
+                    loadItems();
+                    itemsAdapter.clearSelectedItems();
+                }
+
+                @Override
+                public void onFailure(Call<UserId> call, Throwable t) {
+
+                }
+            });
+        }
     }
 }
 

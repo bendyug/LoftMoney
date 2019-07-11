@@ -9,10 +9,14 @@ public class Item {
 
     @SerializedName("created_at")
     private String createdAt;
+    private int id;
 
-    public Item(String name, int price, String createdAt) {
-        this.name = name;
-        this.price = price;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
