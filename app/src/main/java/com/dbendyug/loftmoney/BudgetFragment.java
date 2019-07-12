@@ -213,6 +213,9 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                        removeItems();
+                       if (actionMode != null){
+                           actionMode.finish();
+                       }
                     }
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
