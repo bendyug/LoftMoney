@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +32,6 @@ public class BudgetActivity extends AppCompatActivity {
     private FloatingActionButton openAddScreenButton;
     private ActionMode actionMode;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +40,31 @@ public class BudgetActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         budgetViewPagerAdapter = new BudgetViewPagerAdapter(getSupportFragmentManager());
 
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(budgetViewPagerAdapter);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (BudgetFragment.actionMode != null) {
+                    BudgetFragment.actionMode.finish();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         window = getWindow();
 
         tabLayout.setupWithViewPager(viewPager);
@@ -97,6 +114,7 @@ public class BudgetActivity extends AppCompatActivity {
         tabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         setStatusBarColor(R.color.colorPrimaryDark);
         openAddScreenButton.show();
+
     }
 
     static class BudgetViewPagerAdapter extends FragmentPagerAdapter {

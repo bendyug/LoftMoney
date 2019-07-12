@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,9 +45,8 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
     private LoftApi loftApi;
     private ItemsAdapter itemsAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    public static ActionMode actionMode;
 
-    public BudgetFragment() {
-    }
 
     public static BudgetFragment newInstance(FragmentType fragmentType) {
         BudgetFragment fragment = new BudgetFragment();
@@ -164,6 +162,10 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
         if (ItemsAdapter.selectedItems.size() > 0) {
             itemsAdapter.toggleItem(position);
             itemsAdapter.notifyDataSetChanged();
+            actionMode.setTitle(getResources().getString(R.string.items_selected_count) + ItemsAdapter.selectedItems.size());
+        }
+        if (ItemsAdapter.selectedItems.size() == 0 && actionMode != null){
+            actionMode.finish();
         }
     }
 
@@ -176,9 +178,9 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
         }
     }
 
-
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+        actionMode = mode;
         return true;
     }
 
@@ -201,6 +203,7 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
     public void onDestroyActionMode(ActionMode mode) {
         itemsAdapter.clearSelectedItems();
         itemsAdapter.notifyDataSetChanged();
+        actionMode = null;
     }
 
     private void showDialog() {
