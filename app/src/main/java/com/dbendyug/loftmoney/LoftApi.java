@@ -19,4 +19,6 @@ public interface LoftApi {
     @POST("items/add")
     Call<UserId> addItems(@Body AddItemRequest addItemRequest, @Query("auth-token") String authToken);
 
+    @POST("items/remove")
+    Call<UserId> deleteItem(@Query("id") int id, @Query("auth-token") String authToken);
 }

@@ -8,4 +8,9 @@
     <string name="outcome">Расходы</string>
     <string name="income">Доходы</string>
     <string name="login_button">Войти</string>
+    <string name="menu_delete_title">Удалить</string>
+    <string name="dialog_delete_message">Вы действительно хотите удалить выбранные элементы?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="items_selected_count">Выделено: </string>
 </resources>

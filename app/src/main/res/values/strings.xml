@@ -9,4 +9,9 @@
     <string name="income">Income</string>
     <string name="login_button">Login</string>
     <string name="app_name_english" translatable="false">LoftMoney</string>
+    <string name="menu_delete_title">Delete</string>
+    <string name="dialog_delete_message">Are you sure you want to delete the selected items?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="items_selected_count">Selected: </string>
 </resources>
