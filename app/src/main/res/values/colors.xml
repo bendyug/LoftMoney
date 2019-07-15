@@ -16,4 +16,7 @@
     <color name="item_background_selected">#f2f2f2</color>
     <color name="toolbar_background_item_selected_color">#333f59</color>
     <color name="status_bar_background_item_selected_color">#303C54</color>
+    <color name="balance_text_color">#666664</color>
+    <color name="total_balance_color">#ff9e57</color>
+    <color name="divider_color">#efefef</color>
 </resources>

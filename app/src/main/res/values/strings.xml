@@ -5,7 +5,8 @@
     <string name="add_button_text">Add</string>
     <string name="budget_activity_title">Budget control</string>
     <string name="price_template">%1$s ₽</string>
-    <string name="outcome">Expense</string>
+    <string name="price_template_no_spacebar">%1$s₽</string>
+    <string name="expense">Expense</string>
     <string name="income">Income</string>
     <string name="login_button">Login</string>
     <string name="app_name_english" translatable="false">LoftMoney</string>
@@ -14,4 +15,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="items_selected_count">Selected: </string>
+    <string name="balance">Total</string>
+    <string name="available_finances">Available finances</string>
 </resources>
