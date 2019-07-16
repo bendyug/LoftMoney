@@ -118,7 +118,6 @@ public class BudgetActivity extends AppCompatActivity {
         tabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         setStatusBarColor(R.color.colorPrimaryDark);
         openAddScreenButton.show();
-
     }
 
     static class BudgetViewPagerAdapter extends FragmentPagerAdapter {

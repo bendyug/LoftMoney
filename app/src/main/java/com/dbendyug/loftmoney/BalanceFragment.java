@@ -40,7 +40,6 @@ public class BalanceFragment extends Fragment {
         totalExpense = fragmentView.findViewById(R.id.total_expense);
         totalIncome = fragmentView.findViewById(R.id.total_income);
 
-
         return fragmentView;
     }
 
@@ -58,6 +57,13 @@ public class BalanceFragment extends Fragment {
         loadBalance();
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            loadBalance();
+        }
+    }
 
     public void loadBalance() {
         SharedPreferences sharedPreferences = Objects.requireNonNull(getContext()).getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
