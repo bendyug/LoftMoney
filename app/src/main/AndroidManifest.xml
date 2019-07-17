@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dbendyug.loftmoney">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".LoftApp"
@@ -14,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
             android:theme="@style/AddActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,11 +26,16 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".AddItemActivity"
-            android:theme="@style/AddActivityTheme"
-            />
-        <activity android:name=".BudgetActivity"
-            android:theme="@style/BudgetActivityTheme"/>
+        <activity
+            android:name=".AddItemActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AddActivityTheme" />
+        <activity
+            android:name=".BudgetActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/BudgetActivityTheme" />
     </application>
 
 </manifest>

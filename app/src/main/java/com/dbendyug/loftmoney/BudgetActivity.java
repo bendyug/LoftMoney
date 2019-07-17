@@ -9,7 +9,6 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -30,7 +29,6 @@ public class BudgetActivity extends AppCompatActivity {
     private BudgetViewPagerAdapter budgetViewPagerAdapter;
     private Window window;
     private FloatingActionButton openAddScreenButton;
-    private ActionMode actionMode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +55,11 @@ public class BudgetActivity extends AppCompatActivity {
                 if (BudgetFragment.actionMode != null) {
                     BudgetFragment.actionMode.finish();
                 }
+                if (position == 2) {
+                    openAddScreenButton.hide();
+                } else {
+                    openAddScreenButton.show();
+                }
             }
 
             @Override
@@ -68,8 +71,9 @@ public class BudgetActivity extends AppCompatActivity {
         window = getWindow();
 
         tabLayout.setupWithViewPager(viewPager);
-        Objects.requireNonNull(tabLayout.getTabAt(0)).setText(R.string.outcome);
+        Objects.requireNonNull(tabLayout.getTabAt(0)).setText(R.string.expense);
         Objects.requireNonNull(tabLayout.getTabAt(1)).setText(R.string.income);
+        Objects.requireNonNull(tabLayout.getTabAt(2)).setText(R.string.balance);
 
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_indicator_color));
 
@@ -114,7 +118,6 @@ public class BudgetActivity extends AppCompatActivity {
         tabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         setStatusBarColor(R.color.colorPrimaryDark);
         openAddScreenButton.show();
-
     }
 
     static class BudgetViewPagerAdapter extends FragmentPagerAdapter {
@@ -131,13 +134,15 @@ public class BudgetActivity extends AppCompatActivity {
                     return BudgetFragment.newInstance(FragmentType.expense);
                 case (1):
                     return BudgetFragment.newInstance(FragmentType.income);
+                case (2):
+                    return BalanceFragment.newInstance();
             }
             return null;
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
     }
 }

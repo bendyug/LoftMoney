@@ -5,7 +5,8 @@
     <string name="add_button_text">Добавить</string>
     <string name="budget_activity_title">Учёт бюджета</string>
     <string name="price_template">%1$s ₽</string>
-    <string name="outcome">Расходы</string>
+    <string name="price_template_no_spacebar">%1$s₽</string>
+    <string name="expense">Расходы</string>
     <string name="income">Доходы</string>
     <string name="login_button">Войти</string>
     <string name="menu_delete_title">Удалить</string>
@@ -13,4 +14,6 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="items_selected_count">Выделено: </string>
+    <string name="balance">Баланс</string>
+    <string name="available_finances">Доступные финансы</string>
 </resources>

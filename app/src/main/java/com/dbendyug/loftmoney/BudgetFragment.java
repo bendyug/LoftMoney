@@ -23,6 +23,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -61,7 +63,7 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        loftApi = ((LoftApp) getActivity().getApplication()).getLoftApi();
+        loftApi = ((LoftApp) Objects.requireNonNull(getActivity()).getApplication()).getLoftApi();
     }
 
     @Override
@@ -72,7 +74,7 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View fragmentView = inflater.inflate(R.layout.fragment_budget, container, false);
@@ -164,7 +166,8 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
             itemsAdapter.notifyDataSetChanged();
             actionMode.setTitle(getResources().getString(R.string.items_selected_count) + ItemsAdapter.selectedItems.size());
         }
-        if (ItemsAdapter.selectedItems.size() == 0 && actionMode != null){
+        if (ItemsAdapter.selectedItems.size() == 0 && actionMode != null) {
+            actionMode.setTitle(null);
             actionMode.finish();
         }
     }
@@ -212,10 +215,10 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                       removeItems();
-                       if (actionMode != null){
-                           actionMode.finish();
-                       }
+                        removeItems();
+                        if (actionMode != null) {
+                            actionMode.finish();
+                        }
                     }
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {

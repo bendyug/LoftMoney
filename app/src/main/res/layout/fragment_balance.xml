@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/available_finance_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="37dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="end"
+            android:text="@string/available_finances"
+            android:textColor="@color/balance_text_color"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Доступные финансы" />
+
+        <TextView
+            android:id="@+id/total_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="end"
+            android:textColor="@color/total_balance_color"
+            android:textSize="48sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/available_finance_title"
+            tools:text="67000₽" />
+
+        <View
+            android:id="@+id/divider_1"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="37dp"
+            android:background="@color/divider_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/total_balance" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="26dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="end"
+            android:text="@string/expense"
+            android:textColor="@color/balance_text_color"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider_1"
+            tools:text="Расход" />
+
+        <TextView
+            android:id="@+id/total_expense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="end"
+            android:textColor="@color/expense_price_color"
+            android:textSize="24sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            tools:text="5400₽" />
+
+        <View
+            android:id="@+id/divider_2"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:background="@color/divider_color"
+            app:layout_constraintBottom_toTopOf="@id/divider_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_1" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="26dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="end"
+            android:text="@string/income"
+            android:textColor="@color/balance_text_color"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toEndOf="@+id/divider_2"
+            app:layout_constraintTop_toTopOf="@+id/divider_2"
+            tools:text="Доход" />
+
+        <TextView
+            android:id="@+id/total_income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="end"
+            android:textColor="@color/income_price_color"
+            android:textSize="24sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toEndOf="@+id/divider_2"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            tools:text="74000₽" />
+
+        <View
+            android:id="@+id/divider_3"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="26dp"
+            android:background="@color/divider_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/total_expense" />
+
+        <com.dbendyug.loftmoney.DiagramView
+            android:id="@+id/diagram_view"
+            android:layout_width="match_parent"
+            android:layout_height="176dp"
+            android:layout_marginTop="36dp"
+            app:expense_color="@color/expense_price_color"
+            app:income_color="@color/income_price_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider_3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
