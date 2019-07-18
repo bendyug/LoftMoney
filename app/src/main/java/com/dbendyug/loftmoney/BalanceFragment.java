@@ -25,6 +25,7 @@ public class BalanceFragment extends Fragment {
     private TextView totalBalance;
     private TextView totalExpense;
     private TextView totalIncome;
+    private boolean isCreated;
 
     public static BalanceFragment newInstance() {
         return new BalanceFragment();
@@ -46,6 +47,7 @@ public class BalanceFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isCreated = true;
 
         loftApi = ((LoftApp) Objects.requireNonNull(getActivity()).getApplication()).getLoftApi();
     }
@@ -60,7 +62,7 @@ public class BalanceFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser){
+        if (isVisibleToUser & isCreated){
             loadBalance();
         }
     }
