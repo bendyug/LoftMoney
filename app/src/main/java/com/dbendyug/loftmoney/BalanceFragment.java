@@ -62,7 +62,7 @@ public class BalanceFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser & isCreated){
+        if (isVisibleToUser && isCreated){
             loadBalance();
         }
     }
